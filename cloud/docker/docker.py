@@ -1019,7 +1019,7 @@ class DockerManager(object):
         current = self.get_inspect_containers(running)
 
         #Get API version
-        api_version = self.client.version()['ApiVersion']
+        api_version = float(self.client.version()['ApiVersion'])
 
         image = self.get_inspect_image()
         if image is None:
@@ -1407,7 +1407,7 @@ class DockerManager(object):
             mem_limit = _human_to_bytes(self.module.params.get('memory_limit'))
         except ValueError as e:
             self.module.fail_json(msg=str(e))
-        api_version = self.client.version()['ApiVersion']
+        api_version = float(self.client.version()['ApiVersion'])
 
         params = {'image':        self.module.params.get('image'),
                   'command':      self.module.params.get('command'),
